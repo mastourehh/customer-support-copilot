@@ -1,0 +1,11 @@
+
+# Sample Product FAQ
+
+Q: How do I reset my password?
+A: Go to Settings > Security > Reset Password. Enter your current password, then choose a new one with at least 12 characters.
+
+Q: What is the refund policy?
+A: Refunds are available within 30 days of purchase if you provide proof of payment and uninstall the product from your devices.
+
+Q: How can I contact support?
+A: Email support@example.com or use the in-app Help > Contact Support form. Response times are typically within 24 business hours.

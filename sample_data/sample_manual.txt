@@ -1,0 +1,10 @@
+
+# Sample Product Manual (v1.2)
+
+## Account & Security
+- Password Requirements: at least 12 characters, one number, one symbol.
+- Two-Factor Authentication: Go to Settings > Security > 2FA to enable.
+
+## Troubleshooting
+- If you cannot receive verification emails, check spam folder or whitelist no-reply@example.com.
+- For app crashes, collect logs from Help > Diagnostics and attach them in your support ticket.
