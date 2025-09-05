@@ -5,10 +5,6 @@ from llm_clients import embed_texts
 
 
 def chunk_text(text: str, chunk_size: int = 300, overlap: int = 100) -> List[str]:
-    """
-    Sliding window over words with overlap.
-    chunk_size/overlap are in *words* (not characters).
-    """
     words = text.split()
     chunks: List[str] = []
     i = 0
@@ -21,7 +17,6 @@ def chunk_text(text: str, chunk_size: int = 300, overlap: int = 100) -> List[str
 
 
 def chunk_docs(texts: List[str], chunk_size: int = 300, overlap: int = 100) -> List[str]:
-    """Chunk multiple documents and return a single list of chunks."""
     all_chunks: List[str] = []
     for doc in texts:
         parts = chunk_text(doc, chunk_size=chunk_size, overlap=overlap)
@@ -30,10 +25,6 @@ def chunk_docs(texts: List[str], chunk_size: int = 300, overlap: int = 100) -> L
 
 
 def read_uploaded_files(files) -> List[str]:
-    """
-    Streamlit uploader 'files' -> list of decoded text strings.
-    Keeps logic here to keep app.py tidy (but avoids importing streamlit).
-    """
     texts: List[str] = []
     for f in (files or []):
         raw = f.read()
@@ -44,10 +35,6 @@ def read_uploaded_files(files) -> List[str]:
 
 
 def build_faiss(chunks: List[str]):
-    """
-    Embed chunks and return a FAISS IndexFlatIP with those embeddings added.
-    Returns None if no chunks.
-    """
     if not chunks:
         return None
 
@@ -62,10 +49,6 @@ def build_faiss(chunks: List[str]):
 
 
 def search(index, query: str, k: int = 5) -> Tuple[List[float], List[int]]:
-    """
-    Embed a query and retrieve top-k results from FAISS index.
-    Returns (scores, indices).
-    """
     if index is None or not query.strip():
         return [], []
 
@@ -78,16 +61,12 @@ def search(index, query: str, k: int = 5) -> Tuple[List[float], List[int]]:
 
 
 def gather_context(chunks: List[str], idx: List[int], max_chars: int = 3500) -> str:
-    """Join selected chunks with separators; clamp length."""
     pieces = [chunks[i] for i in idx if 0 <= i < len(chunks)]
     ctx = "\n\n---\n\n".join(pieces)
     return ctx[:max_chars]
 
 
 def coverage_score(scores: List[float]) -> float:
-    """
-    Heuristic: map top inner product ([-1, 1]) to 0..100%.
-    """
     if not scores:
         return 0.0
     top = max(scores)
